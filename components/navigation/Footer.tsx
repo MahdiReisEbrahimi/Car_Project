@@ -21,11 +21,11 @@ export default function Footer() {
       </div>
 
       {footerLinks.map((footerLink) => (
-        <div>
+        <div key={footerLink.title}>
           <h3 className="text-black font-bold text-lg">{footerLink.title}</h3>
           <ul className="mt-3">
             {footerLink.links.map((link) => (
-              <li>
+              <li key={link.title}>
                 <Link href={link.url}>{link.title}</Link>
               </li>
             ))}
