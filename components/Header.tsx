@@ -4,7 +4,7 @@ import hero from "@/public/hero.png";
 
 export default function Header() {
   return (
-    <div className="flex flex-col text-justify items-center m-auto mt-20 w-2/3 ">
+    <div className="flex flex-col text-justify items-center m-auto mt-35 w-2/3 ">
       <div>
         <h1 className="font-bold text-5xl">
           Find, book, rent a car -- quick and super easy!
