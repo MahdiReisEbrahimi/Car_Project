@@ -1,5 +1,5 @@
 import CarsPrint from "@/components/car-categury/CarsPrint";
-import SearchBar from "@/components/car-categury/SearchBar";
+import SearchBar from "@/components/reusable/SearchBar";
 import Header from "@/components/Header";
 
 export default function Home() {
@@ -10,8 +10,7 @@ export default function Home() {
         <h2 className="font-bold text-2xl">Car Catalogue</h2>
         <p>Explore the cars like</p>
         <div>
-          <SearchBar />
-
+          <SearchBar hasIcon={true} placeholder="Company name" />
         </div>
         <CarsPrint />
       </div>
