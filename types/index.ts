@@ -6,3 +6,8 @@ export interface CustomButtonProps {
   buttonStyle?: string;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
 }
+
+export interface SearchBarProps {
+  placeholder: string;
+  hasIcon: boolean;
+}
