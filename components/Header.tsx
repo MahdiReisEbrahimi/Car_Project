@@ -26,7 +26,7 @@ export default function Header() {
               "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
           }}
         />
-        <Image src={hero} alt="hero car" fill className="object-cover z-10" />
+        <Image src={hero} alt="hero car" fill  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover z-10" />
       </div>
     </div>
   );
