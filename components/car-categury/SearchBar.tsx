@@ -13,6 +13,7 @@ import Image from "next/image";
 import { FaArrowAltCircleDown, FaRegCheckCircle } from "react-icons/fa";
 import { manufacturers } from "@/constants/constants";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { IoSearch } from "react-icons/io5";
 
 export default function SearchBar2() {
   const [query, setQuery] = useState("");
@@ -43,7 +44,7 @@ export default function SearchBar2() {
   }
 
   return (
-    <div ref={divRef} className="mx-auto w-75">
+    <div ref={divRef} className="mx-auto w-75 mb-3">
       <Combobox
         value={selected}
         onChange={(value: string) => setSelected(value)}
@@ -95,6 +96,12 @@ export default function SearchBar2() {
           </ComboboxOptions>
         )}
       </Combobox>
+      <button
+        type="button"
+        className="flex items-center justify-center m-auto bg-black cursor-pointer p-2 rounded-lg text-white font-bold w-full hover:bg-gray-900 "
+      >
+        Search For Cars <IoSearch className="font-bold ml-2 text-xl" />
+      </button>
     </div>
   );
 }
