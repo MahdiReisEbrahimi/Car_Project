@@ -13,7 +13,6 @@ import Image from "next/image";
 import { FaArrowAltCircleDown, FaRegCheckCircle } from "react-icons/fa";
 import { manufacturers } from "@/constants/constants";
 import { useClickOutside } from "@/hooks/useClickOutside";
-import { IoSearch } from "react-icons/io5";
 
 export default function SearchBar2() {
   const [query, setQuery] = useState("");

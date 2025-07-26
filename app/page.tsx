@@ -1,6 +1,6 @@
-import CarsPrint from "@/components/car-categury/CarsPrint";
 import Header from "@/components/Header";
 import SearchBar2 from "@/components/car-categury/SearchBar";
+import ManufacturersPrint from "@/components/car-categury/ManufacturersPrint";
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
         <div>
           <SearchBar2 />
         </div>
-        <CarsPrint />
+        <ManufacturersPrint />
       </div>
     </main>
   );
