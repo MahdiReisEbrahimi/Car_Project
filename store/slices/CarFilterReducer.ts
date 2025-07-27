@@ -4,11 +4,13 @@ import { Manufacturer } from "@/types";
 interface CarManufacturerState {
   filteredManufacturers: Manufacturer[] | null;
   wholeManufacturers: Manufacturer[] | null;
+  filterBy : string;
 }
 
 const initialState: CarManufacturerState = {
   wholeManufacturers: null,
   filteredManufacturers: null,
+  filterBy : "manufacturers"
 };
 
 const carFilterSlice = createSlice({
