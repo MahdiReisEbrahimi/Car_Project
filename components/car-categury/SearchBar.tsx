@@ -7,27 +7,33 @@ import {
   ComboboxOptions,
 } from "@headlessui/react";
 import clsx from "clsx";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import carLogo from "@/public/car-logo.svg";
 import Image from "next/image";
 import { FaArrowAltCircleDown, FaRegCheckCircle } from "react-icons/fa";
-import { manufacturers } from "@/constants/constants";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@/store/index";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { filterManufacturers } from "@/store/slices/CarFilterReducer";
 
 export default function SearchBar2() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState("");
   const [showOptions, setShowOptions] = useState(false);
+
   const divRef = useRef<HTMLDivElement>(null);
+
+  const filteredManufacturers = useSelector(
+    (state: RootState) => state.carFilter.filteredManufacturers
+  );
+
+  const dispatch = useDispatch();
 
   useClickOutside(divRef, () => setShowOptions(false));
 
-  const filteredManufacturers =
-    query === ""
-      ? manufacturers
-      : manufacturers.filter((manufacturer: string) => {
-          return manufacturer.toLowerCase().includes(query.toLowerCase());
-        });
+  useEffect(() => {
+    dispatch(filterManufacturers(query));
+  }, [query]);
 
   function handleFocus() {
     setShowOptions(true);
@@ -46,7 +52,10 @@ export default function SearchBar2() {
     <div ref={divRef} className="mx-auto w-55 mb-3">
       <Combobox
         value={selected}
-        onChange={(value: string) => setSelected(value)}
+        onChange={(value: string) => {
+          setSelected(value);
+          dispatch(filterManufacturers(value)); // ارسال مقدار انتخاب شده به ریداکس
+        }}
         onClose={() => setQuery("")}
         __demoMode
       >
@@ -82,14 +91,16 @@ export default function SearchBar2() {
               "transition duration-100 ease-in data-leave:data-closed:opacity-0"
             )}
           >
-            {filteredManufacturers.map((manufacturer) => (
+            {filteredManufacturers?.map((manufacturer) => (
               <ComboboxOption
-                key={manufacturer}
-                value={manufacturer}
+                key={manufacturer.Mfr_ID}
+                value={manufacturer.Mfr_CommonName}
                 className="group flex cursor-default items-center gap-2 rounded-lg px-3 py-1.5 select-none data-focus:bg-white/10 hover:cursor-pointer"
               >
                 <FaRegCheckCircle className="invisible size-4 fill-white group-data-selected:visible" />
-                <div className="text-sm/6 text-white">{manufacturer}</div>
+                <div className="text-sm/6 text-white">
+                  {manufacturer.Mfr_CommonName}
+                </div>
               </ComboboxOption>
             ))}
           </ComboboxOptions>
