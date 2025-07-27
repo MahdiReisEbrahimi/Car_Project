@@ -15,14 +15,16 @@ const carFilterSlice = createSlice({
   name: "carFilter",
   initialState,
   reducers: {
-    setManufacturers(state , actions : PayloadAction<Manufacturer[]>) {
-        state.wholeManufacturers = actions.payload;
-        state.filteredManufacturers = actions.payload;
+    setManufacturers(state, actions: PayloadAction<Manufacturer[]>) {
+      state.wholeManufacturers = actions.payload;
+      state.filteredManufacturers = actions.payload;
     },
     filterManufacturers(state, actions: PayloadAction<string | null>) {
       state.filteredManufacturers =
         state.wholeManufacturers?.filter((manufacturer) =>
-          manufacturer.Mfr_Name.includes(actions.payload ?? "")
+          manufacturer.Mfr_CommonName.toLowerCase().includes(
+            actions.payload?.toLowerCase() ?? ""
+          )
         ) || null;
     },
   },
