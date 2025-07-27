@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CarType, FetchDataType, Manufacturer } from "@/types";
+import { FetchDataType, FetchMakesByManufacturer, Manufacturer } from "@/types";
 
 interface GetMakesByManufacturerIDQueryParams {
   manufacturerName: string;
@@ -37,7 +37,7 @@ export const carsApi = createApi({
       query: () => "/vehicles//GetAllMakes?format=json",
     }),
     getMakesByManufacturer: builder.query<
-      FetchDataType,
+      FetchMakesByManufacturer,
       GetMakesByManufacturerIDQueryParams
     >({
       query: ({ manufacturerName }) =>
