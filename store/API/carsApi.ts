@@ -1,10 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CarType , FetchDataType , Manufacturer } from "@/types";
+import { CarType, FetchDataType, Manufacturer } from "@/types";
 
-interface GetCarsQueryParams {
-  make?: string;
-  model?: string;
-  year?: string;
+interface GetMakesByManufacturerIDQueryParams {
+  manufacturerName: string;
 }
 
 export const carsApi = createApi({
@@ -30,14 +28,27 @@ export const carsApi = createApi({
     getAudiCars: builder.query<FetchDataType, void>({
       query: () => "/vehicles/GetModelsForMakeId/440?format=json",
     }),
-    getAllManufacturers : builder.query<Manufacturer[] , void>({
-      query:() => "/vehicles/GetAllManufacturers?format=json&page=2",
-      transformResponse: (response: { Results: Manufacturer[] }) => response.Results,
+    getAllManufacturers: builder.query<Manufacturer[], void>({
+      query: () => "/vehicles/GetAllManufacturers?format=json&page=2",
+      transformResponse: (response: { Results: Manufacturer[] }) =>
+        response.Results,
     }),
-    getAllMakes : builder.query<FetchDataType , void>({
-      query:() => "/vehicles//GetAllMakes?format=json",
-    })
+    getAllMakes: builder.query<FetchDataType, void>({
+      query: () => "/vehicles//GetAllMakes?format=json",
+    }),
+    getMakesByManufacturer: builder.query<
+      FetchDataType,
+      GetMakesByManufacturerIDQueryParams
+    >({
+      query: ({ manufacturerName }) =>
+        `/vehicles/GetMakeForManufacturer/${manufacturerName}?format=json`,
+    }),
   }),
 });
 
-export const { useGetAudiCarsQuery , useGetAllManufacturersQuery , useGetAllMakesQuery } = carsApi;
+export const {
+  useGetAudiCarsQuery,
+  useGetAllManufacturersQuery,
+  useGetAllMakesQuery,
+  useGetMakesByManufacturerQuery,
+} = carsApi;
