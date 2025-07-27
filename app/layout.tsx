@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <NavBar />
-          {children}
+          <main className="mt-20 mx-10">{children}</main>
           <Footer />
         </Providers>
       </body>

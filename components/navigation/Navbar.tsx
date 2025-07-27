@@ -5,7 +5,7 @@ import CustomButton from "../reusable/CustomButton";
 
 export default function NavBar() {
   return (
-    <header className="w-full absolute z-10 top-0 left-0">
+    <header className="w-full absolute z-50 top-0 left-0">
       <nav className="mx-10 flex justify-between items-center">
         <Link href="/" className="relative">
           <Image
