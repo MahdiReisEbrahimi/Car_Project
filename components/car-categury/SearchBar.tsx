@@ -27,18 +27,18 @@ export default function SearchBar({ searchByField }: SearchBar) {
   const filteredManufacturers = useSelector(
     (state: RootState) => state.carFilter.filteredManufacturers
   );
-  const filterBy = useSelector(
-    (state: RootState) => state.carFilter.filterBy
-  );
-  console.log(filterBy)
+  const filterBy = useSelector((state: RootState) => state.carFilter.filterBy);
   const dispatch = useDispatch();
-  const [isClicked, setIsClicked] = useState(filterBy === searchByField ? true : false);
+  const [isClicked, setIsClicked] = useState(
+    filterBy === searchByField ? true : false
+  );
 
   useClickOutside(divRef, () => setShowOptions(false));
 
   useEffect(() => {
-    dispatch(filterManufacturers(query));
-  }, [query]);
+    if (query === "") dispatch(filterManufacturers(selected));
+    else dispatch(filterManufacturers(query));
+  }, [query, selected]);
 
   function handleFocus() {
     setShowOptions(true);
@@ -53,13 +53,16 @@ export default function SearchBar({ searchByField }: SearchBar) {
     setShowOptions(true);
   }
 
-  function searchByClickHandler(){
-    setIsClicked(true)
+  function searchByClickHandler() {
+    setIsClicked(true);
   }
   return (
     <div ref={divRef} className="mx-4 w-55 mb-3">
       {!isClicked ? (
-        <p onClick={searchByClickHandler} className="text-center cursor-pointer hover:text-white hover:bg-blue-900 text-blue-900 bg-blue-200 rounded-sm font-bold p-2">
+        <p
+          onClick={searchByClickHandler}
+          className="text-center cursor-pointer hover:text-white hover:bg-blue-900 text-blue-900 bg-blue-200 rounded-sm font-bold p-2"
+        >
           Search By {searchByField}
         </p>
       ) : (
