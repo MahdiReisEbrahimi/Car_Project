@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import SearchBar2 from "@/components/car-categury/SearchBar";
+import SearchBar from "@/components/car-categury/SearchBar";
 import ManufacturersPrint from "@/components/car-categury/ManufacturersPrint";
 
 export default function Home() {
@@ -9,8 +9,13 @@ export default function Home() {
       <div className="my-15">
         <h2 className="font-bold text-2xl">Car Catalogue</h2>
         <p>Explore the cars like</p>
-        <div>
-          <SearchBar2 />
+        <div className="flex justify-center">
+          <div className="m-auto flex">
+            <SearchBar searchByField="manufacturers"/>
+            <SearchBar searchByField="CarName"/>
+            <SearchBar searchByField="Year"/>
+            <SearchBar searchByField="Money"/>
+          </div>
         </div>
         <ManufacturersPrint />
       </div>
