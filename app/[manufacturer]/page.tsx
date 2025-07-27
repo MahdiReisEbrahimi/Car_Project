@@ -1,7 +1,4 @@
 "use client";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store";
-import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useFindManufacturerName } from "@/hooks/useFindManufacturerName";
 import { useGetMakesByManufacturerQuery } from "@/store/API/carsApi";
@@ -20,11 +17,23 @@ export default function ManufacturerDetail() {
     manufacturerName: manufacturerName ? manufacturerName : "",
   });
 
+  // delete the repeated data:
+  const uniqeData : Makes[] = [];
+  const seen = new Set();
+
+  data?.Results?.forEach((item) => {
+    if (!seen.has(item.Make_ID)) {
+      seen.add(item.Make_ID);
+      uniqeData.push(item);
+    }
+  });
+
+  // wrong manufacturer ID error Handling
   if (findNameEror) return <div>This Manufacturer Id does not exist!</div>;
 
   return (
     <div>
-      {data?.Results?.map((make) => (
+      {uniqeData?.map((make) => (
         <div key={make.Make_ID}>
           {make.Make_Name} : {make.Make_ID}
         </div>
