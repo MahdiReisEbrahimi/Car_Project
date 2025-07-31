@@ -15,7 +15,7 @@ export function useFindManufacturerName(manufacturerId: number) {
     data: fetchedManufacturers,
     isLoading,
     isSuccess,
-    error,
+    error: fetchError,
   } = useGetAllManufacturersQuery(undefined, {
     skip: manufacturers !== null && manufacturers.length > 0, // Just when we have no data in store => take data.
   });
@@ -38,5 +38,15 @@ export function useFindManufacturerName(manufacturerId: number) {
       ?.Mfr_CommonName;
   }, [manufacturers, manufacturerId]);
 
-  return { manufacturerName, isLoading, error };
+  const idNotFoundError =
+    !isLoading &&
+    manufacturers &&
+    manufacturers.length > 0 &&
+    !manufacturerName;
+
+  return {
+    manufacturerName,
+    isLoading,
+    error: fetchError || (idNotFoundError && new Error("ID not found")),
+  };
 }
