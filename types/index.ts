@@ -33,17 +33,20 @@ export interface Makes{
   Mfr_Name : string;
 }
 
-export interface FetchMakesByManufacturer {
+export interface FetchMakes {
   Count: number;
   Message: string;
   Results: Makes[];
   SearchCriteria: string;
 }
 
-export interface FetchDataType {
-  Count: number;
-  Message: string;
-  Results: CarType[] | Manufacturer[] | Makes[];
-  SearchCriteria: string;
+export interface ManufacturerDetail{
+  Address : string;
+  City : string;
+  Mfr_CommonName : string;
+  ContactEmail : string;
+  ContactPhone : string;
+  Country : string;
+  Mfr_ID : number;
 }
 

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { FetchDataType, FetchMakesByManufacturer, Manufacturer } from "@/types";
+import { FetchMakes, Manufacturer, ManufacturerDetail } from "@/types";
 
-interface GetMakesByManufacturerIDQueryParams {
+interface manufa {
   manufacturerName: string;
 }
 
@@ -15,40 +15,36 @@ export const carsApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // getCars: builder.query<CarType[], GetCarsQueryParams>({
-    //   query: (params) => {
-    //     const searchParams = new URLSearchParams();
-    //     if (params.make) searchParams.append("make", params.make);
-    //     if (params.model) searchParams.append("model", params.model);
-    //     if (params.year) searchParams.append("year", params.year);
-
-    //     return `/v1/cars?${searchParams.toString()}`;
-    //   },
-    // }),
-    getAudiCars: builder.query<FetchDataType, void>({
-      query: () => "/vehicles/GetModelsForMakeId/440?format=json",
-    }),
     getAllManufacturers: builder.query<Manufacturer[], void>({
       query: () => "/vehicles/GetAllManufacturers?format=json&page=2",
       transformResponse: (response: { Results: Manufacturer[] }) =>
         response.Results,
     }),
-    getAllMakes: builder.query<FetchDataType, void>({
+    getAllMakes: builder.query<FetchMakes, void>({
       query: () => "/vehicles//GetAllMakes?format=json",
     }),
     getMakesByManufacturer: builder.query<
-      FetchMakesByManufacturer,
-      GetMakesByManufacturerIDQueryParams
+      FetchMakes,
+      { manufacturerName: string }
     >({
       query: ({ manufacturerName }) =>
         `/vehicles/GetMakeForManufacturer/${manufacturerName}?format=json`,
+    }),
+    getManufacturerDetail: builder.query<
+      ManufacturerDetail[],
+      { manufacturerName: string }
+    >({
+      query: ({ manufacturerName }) =>
+        `/vehicles/GetManufacturerDetails/${manufacturerName}?format=json`,
+      transformResponse: (response: { Results: ManufacturerDetail[] }) =>
+        response.Results,
     }),
   }),
 });
 
 export const {
-  useGetAudiCarsQuery,
   useGetAllManufacturersQuery,
   useGetAllMakesQuery,
   useGetMakesByManufacturerQuery,
+  useGetManufacturerDetailQuery,
 } = carsApi;
