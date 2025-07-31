@@ -7,32 +7,44 @@ import {
 } from "@/store/API/carsApi";
 import { Makes } from "@/types";
 import MakesPrint from "./MakesPrint";
-import { useEffect } from "react";
 import ManufacturerDetailsPrint from "./ManufacturerDetailsPrint";
+import Error from "@/components/errorTemplates/ٍٍError";
+import LoadingSpinner from "@/components/reusable/LoadingSpinner";
 
 export default function ManufacturerDetail() {
   const params = useParams();
 
   const {
     manufacturerName,
-    isLoading,
+    isLoading: isMfr_NameLoading,
     error: findNameEror,
   } = useFindManufacturerName(Number(params.manufacturer));
 
   //====Taking manufacturer Detail from server:
-  const { data: manufacturerDetail, error: manufacturerDetailError } =
-    useGetManufacturerDetailQuery({
+  const {
+    data: manufacturerDetail,
+    isLoading: isMfr_detailLoading,
+    error: manufacturerDetailError,
+  } = useGetManufacturerDetailQuery(
+    {
       manufacturerName: manufacturerName ? manufacturerName : "",
-    });
-
-  useEffect(() => {
-    console.log(manufacturerDetail);
-  }, [manufacturerDetail]);
+    },
+    { skip: !manufacturerName }
+  );
   //====
 
-  const { data: makes, error: getMakesError } = useGetMakesByManufacturerQuery({
-    manufacturerName: manufacturerName ? manufacturerName : "",
-  });
+  const {
+    data: makes,
+    isLoading: isMakesLoading,
+    error: getMakesError,
+  } = useGetMakesByManufacturerQuery(
+    {
+      manufacturerName: manufacturerName ? manufacturerName : "",
+    },
+    {
+      skip: !manufacturerName,
+    }
+  );
 
   // delete the repeated data:
   const uniqeData: Makes[] = [];
@@ -46,30 +58,47 @@ export default function ManufacturerDetail() {
   });
 
   // wrong manufacturer ID error Handling
-  if (findNameEror) return <div>This Manufacturer Id does not exist!</div>;
+  if (findNameEror)
+    return (
+      <Error
+        message={`This Manufacturer Id: (${params.manufacturer}) does not exist! Please Try With A Valid ID`}
+      />
+    );
 
   return (
     <div className="px-4 py-6">
-      <ManufacturerDetailsPrint
-        mfr_name={manufacturerName || "NO MFR EXISTS WHITH THIS ID!"}
-        availableCarLength={uniqeData.length}
-        city={manufacturerDetail?.[0]?.City || "Unknown"}
-        country={manufacturerDetail?.[0]?.Country || "Unknown"}
-        address={manufacturerDetail?.[0]?.Address || "No address available"}
-        contactPhone={
-          manufacturerDetail?.[0]?.ContactPhone || "No phone number available"
-        }
-        contactEmail={
-          manufacturerDetail?.[0]?.ContactEmail || "No email available"
-        }
-      />
+      {findNameEror ? (
+        <Error
+          message={`This Manufacturer ID (${params.manufacturer}) is invalid. Please try a valid one.`}
+        />
+      ) : isMfr_detailLoading || isMfr_NameLoading ? (
+        <LoadingSpinner message="Loading manufacturer details..." />
+      ) : manufacturerDetailError ? (
+        <Error message="Failed to fetch manufacturer details. Please try again later." />
+      ) : (
+        <ManufacturerDetailsPrint
+          mfr_name={manufacturerName || "Unknown Manufacturer"}
+          availableCarLength={uniqeData.length}
+          city={manufacturerDetail?.[0]?.City || "Unknown"}
+          country={manufacturerDetail?.[0]?.Country || "Unknown"}
+          address={manufacturerDetail?.[0]?.Address || "Unknown"}
+          contactPhone={manufacturerDetail?.[0]?.ContactPhone || "Unknown"}
+          contactEmail={manufacturerDetail?.[0]?.ContactEmail || "Unknown"}
+        />
+      )}
 
       {/*Available Cars print*/}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
-        {uniqeData?.map((make) => (
-          <MakesPrint key={make.Make_ID} make={make} />
-        ))}
-      </div>
+      {isMakesLoading ? (
+        <LoadingSpinner message="Makes are Loading" />
+      ) : getMakesError ? (
+        <Error message="Geting makes from server Error. please try again later." />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
+          {uniqeData?.map((make) => (
+            <MakesPrint key={make.Make_ID} make={make} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
