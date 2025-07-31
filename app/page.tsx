@@ -12,9 +12,8 @@ export default function Home() {
         <div className="flex justify-center">
           <div className="m-auto flex">
             <SearchBar searchByField="manufacturers" />
-            <SearchBar searchByField="CarName" />
-            <SearchBar searchByField="Year" />
-            <SearchBar searchByField="Money" />
+            <SearchBar searchByField="carName" />
+            <SearchBar searchByField="year" />
           </div>
         </div>
         <ManufacturersPrint />

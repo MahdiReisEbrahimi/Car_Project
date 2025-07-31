@@ -4,13 +4,13 @@ import { Manufacturer } from "@/types";
 interface CarManufacturerState {
   filteredManufacturers: Manufacturer[] | null;
   wholeManufacturers: Manufacturer[] | null;
-  filterBy : string;
+  filterBy: string;
 }
 
 const initialState: CarManufacturerState = {
   wholeManufacturers: null,
   filteredManufacturers: null,
-  filterBy : "manufacturers"
+  filterBy: "manufacturers",
 };
 
 const carFilterSlice = createSlice({
@@ -29,8 +29,12 @@ const carFilterSlice = createSlice({
           )
         ) || null;
     },
+    setFilteredBy(state, actions: PayloadAction<string>) {
+      state.filterBy = actions.payload;
+    },
   },
 });
 
-export const { setManufacturers, filterManufacturers } = carFilterSlice.actions;
+export const { setManufacturers, filterManufacturers, setFilteredBy } =
+  carFilterSlice.actions;
 export default carFilterSlice.reducer;

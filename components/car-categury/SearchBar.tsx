@@ -14,7 +14,10 @@ import { FaArrowAltCircleDown, FaRegCheckCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store/index";
 import { useClickOutside } from "@/hooks/useClickOutside";
-import { filterManufacturers } from "@/store/slices/CarFilterReducer";
+import {
+  filterManufacturers,
+  setFilteredBy,
+} from "@/store/slices/CarFilterReducer";
 
 interface SearchBar {
   searchByField: string;
@@ -32,6 +35,10 @@ export default function SearchBar({ searchByField }: SearchBar) {
   const [isClicked, setIsClicked] = useState(
     filterBy === searchByField ? true : false
   );
+
+  useEffect(() => {
+    setIsClicked(filterBy === searchByField ? true : false);
+  }, [filterBy]);
 
   useClickOutside(divRef, () => setShowOptions(false));
 
@@ -53,15 +60,18 @@ export default function SearchBar({ searchByField }: SearchBar) {
     setShowOptions(true);
   }
 
+  // changing search method
   function searchByClickHandler() {
     setIsClicked(true);
+    dispatch(setFilteredBy(searchByField));
   }
+
   return (
     <div ref={divRef} className="mx-4 w-55 mb-3">
       {!isClicked ? (
         <p
           onClick={searchByClickHandler}
-          className="text-center cursor-pointer hover:text-white hover:bg-blue-900 text-blue-900 bg-blue-200 rounded-sm font-bold p-2"
+          className=" bg-pink-200 border-5 border-pink-300 text-center cursor-pointer rounded-sm px-2 text-gray-600 font-bold m-auto placeholder:text-black p-2 focus:outline-none focus:ring-0 focus-visible:outline-none"
         >
           Search By {searchByField}
         </p>
@@ -75,25 +85,28 @@ export default function SearchBar({ searchByField }: SearchBar) {
           onClose={() => setQuery("")}
           __demoMode
         >
-          <div className="relative">
-            <div className="flex items-center justify-around mb-3 bg-gray-200 color-black rounded-lg ">
-              <Image src={carLogo} alt="carLogo" />
-              <ComboboxInput
-                placeholder="select company"
-                onFocus={handleFocus}
-                className="w-3/5 m-auto p-2 border-none focus:border-none focus:outline-none focus:ring-0 focus-visible:outline-none"
-                displayValue={(manufacturer: string) => manufacturer}
-                onChange={inputHandleChange}
-                autoComplete="off"
-              />
-            </div>
+          <div className="relative bg-pink-600 border-5 border-pink-300  rounded-sm px-2 text-black font-bold">
+            <ComboboxInput
+              placeholder={
+                searchByField === "manufacturers"
+                  ? "Enter Manufacturer"
+                  : searchByField === "carName"
+                  ? "Enter CarName"
+                  : "Enter Year"
+              }
+              onFocus={handleFocus}
+              className="m-auto placeholder:text-white p-2 focus:outline-none focus:ring-0 focus-visible:outline-none"
+              displayValue={(manufacturer: string) => manufacturer}
+              onChange={inputHandleChange}
+              autoComplete="off"
+            />
 
             <ComboboxButton
               onClick={buttonClickHandler}
               className="group absolute inset-y-0 right-0 px-2.5"
             >
               <FaArrowAltCircleDown
-                color="black"
+                color="white"
                 className="text-2xl hover:cursor-pointer"
               />
             </ComboboxButton>
