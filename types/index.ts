@@ -27,7 +27,7 @@ export interface Manufacturer {
   VehicleTypes: any[];
 }
 
-export interface Makes{
+export interface Make{
   Make_ID : number;
   Make_Name : string;
   Mfr_Name? : string;
@@ -36,7 +36,7 @@ export interface Makes{
 export interface FetchMakes {
   Count: number;
   Message: string;
-  Results: Makes[];
+  Results: Make[];
   SearchCriteria: string;
 }
 
