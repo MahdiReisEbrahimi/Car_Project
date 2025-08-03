@@ -1,9 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { FetchMakes, Manufacturer, ManufacturerDetail } from "@/types";
-
-interface manufa {
-  manufacturerName: string;
-}
+import { FetchMakes, Make, Manufacturer, ManufacturerDetail } from "@/types";
 
 export const carsApi = createApi({
   reducerPath: "carsApi",
@@ -20,8 +16,9 @@ export const carsApi = createApi({
       transformResponse: (response: { Results: Manufacturer[] }) =>
         response.Results,
     }),
-    getAllMakes: builder.query<FetchMakes, void>({
+    getAllMakes: builder.query<Make[], void>({
       query: () => "/vehicles//GetAllMakes?format=json",
+      transformResponse: (response: { Results: Make[] }) => response.Results,
     }),
     getMakesByManufacturer: builder.query<
       FetchMakes,
