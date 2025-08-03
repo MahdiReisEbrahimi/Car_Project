@@ -30,7 +30,7 @@ export interface Manufacturer {
 export interface Makes{
   Make_ID : number;
   Make_Name : string;
-  Mfr_Name : string;
+  Mfr_Name? : string;
 }
 
 export interface FetchMakes {
