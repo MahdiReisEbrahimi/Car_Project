@@ -10,7 +10,7 @@ export default function PrintManufacturers({
   manufacturer,
 }: PrintManufacturersType) {
   return (
-    <Link href={`/${manufacturer.Mfr_ID}`}>
+    <Link href={`/manufacturers/${manufacturer.Mfr_ID}`}>
       <div className="rounded-2xl cursor-pointer bg-white shadow-lg border border-gray-200 hover:shadow-xl hover:scale-[1.015] transition-all duration-300 p-5 flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-gray-800">
