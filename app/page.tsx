@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import SearchBar from "@/components/car-categury/SearchBar";
-import ManufacturersPrint from "@/components/car-categury/ManufacturersPrint";
+import OptionsPrint from "@/components/car-categury/OptionsPrint";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
             <SearchBar searchByField="year" />
           </div>
         </div>
-        <ManufacturersPrint />
+        <OptionsPrint />
       </div>
     </div>
   );

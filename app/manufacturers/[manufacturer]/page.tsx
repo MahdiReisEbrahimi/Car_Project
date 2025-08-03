@@ -5,10 +5,10 @@ import {
   useGetMakesByManufacturerQuery,
   useGetManufacturerDetailQuery,
 } from "@/store/API/carsApi";
-import { Makes } from "@/types";
+import { Make } from "@/types";
 import MakesPrint from "./MakesPrint";
 import ManufacturerDetailsPrint from "./ManufacturerDetailsPrint";
-import Error from "@/components/errorTemplates/ٍٍError";
+import Error from "@/components/errorTemplates/Error";
 import LoadingSpinner from "@/components/reusable/LoadingSpinner";
 
 export default function ManufacturerDetail() {
@@ -47,7 +47,7 @@ export default function ManufacturerDetail() {
   );
 
   // delete the repeated data:
-  const uniqeData: Makes[] = [];
+  const uniqeData: Make[] = [];
   const seen = new Set();
 
   makes?.Results?.forEach((item) => {
