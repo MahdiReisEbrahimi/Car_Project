@@ -1,22 +1,38 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Manufacturer } from "@/types";
+import { Make, Manufacturer } from "@/types";
 
 interface CarManufacturerState {
+  filterBy: "manufacturers" | "makes" | "year";
   filteredManufacturers: Manufacturer[] | null;
   wholeManufacturers: Manufacturer[] | null;
-  filterBy: string;
+  wholeMakes: Make[] | null; // change later
+  filteredMakes: Make[] | null; // change later
 }
 
 const initialState: CarManufacturerState = {
+  filterBy: "manufacturers",
+
+  // states for filtering manufacturers
   wholeManufacturers: null,
   filteredManufacturers: null,
-  filterBy: "manufacturers",
+
+  // states for filtering makes
+  wholeMakes: null,
+  filteredMakes: null,
 };
 
 const carFilterSlice = createSlice({
   name: "carFilter",
   initialState,
   reducers: {
+    setFilteredBy(
+      state,
+      actions: PayloadAction<"manufacturers" | "makes" | "year">
+    ) {
+      state.filterBy = actions.payload;
+    },
+
+    // organization of Manufacturers in the state
     setManufacturers(state, actions: PayloadAction<Manufacturer[]>) {
       state.wholeManufacturers = actions.payload;
       state.filteredManufacturers = actions.payload;
@@ -29,12 +45,28 @@ const carFilterSlice = createSlice({
           )
         ) || null;
     },
-    setFilteredBy(state, actions: PayloadAction<string>) {
-      state.filterBy = actions.payload;
+
+    // organization of makes in the state
+    setMakes(state, actions: PayloadAction<Make[]>) {
+      state.wholeMakes = actions.payload;
+      state.filteredMakes = actions.payload;
+    },
+    filterMakes(state, actions: PayloadAction<string | null>) {
+      state.filteredMakes =
+        state.wholeMakes?.filter((make) =>
+          make.Make_Name.toLowerCase().includes(
+            actions.payload?.toLowerCase() ?? ""
+          )
+        ) || null;
     },
   },
 });
 
-export const { setManufacturers, filterManufacturers, setFilteredBy } =
-  carFilterSlice.actions;
+export const {
+  setMakes,
+  filterMakes,
+  setManufacturers,
+  filterManufacturers,
+  setFilteredBy,
+} = carFilterSlice.actions;
 export default carFilterSlice.reducer;
