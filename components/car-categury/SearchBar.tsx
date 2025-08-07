@@ -8,8 +8,6 @@ import {
 } from "@headlessui/react";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import carLogo from "@/public/car-logo.svg";
-import Image from "next/image";
 import { FaArrowAltCircleDown, FaRegCheckCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store/index";
@@ -18,6 +16,7 @@ import {
   filterManufacturers,
   setFilteredBy,
 } from "@/store/slices/CarFilterReducer";
+import { FaSearch } from "react-icons/fa";
 
 interface SearchBar {
   searchByField: "manufacturers" | "makes" | "year";
@@ -67,13 +66,16 @@ export default function SearchBar({ searchByField }: SearchBar) {
   }
 
   return (
-    <div ref={divRef} className="mx-4 w-55 mb-3">
+    <div ref={divRef} className="mx-4 w-60 mb-6">
       {!isClicked ? (
         <p
           onClick={searchByClickHandler}
-          className=" bg-pink-200 border-5 border-pink-300 text-center cursor-pointer rounded-sm px-2 text-gray-600 font-bold m-auto placeholder:text-black p-2 focus:outline-none focus:ring-0 focus-visible:outline-none"
+          className="bg-gradient-to-r flex items-center gap-3 from-gray-500 to-gray-800 text-center text-sm font-semibold text-white py-2 px-4 rounded-lg shadow-md hover:scale-105 transition cursor-pointer"
         >
-          Search By {searchByField}
+          <span>
+            <FaSearch />
+          </span>
+          Search by {searchByField}
         </p>
       ) : (
         <Combobox
@@ -85,7 +87,8 @@ export default function SearchBar({ searchByField }: SearchBar) {
           onClose={() => setQuery("")}
           __demoMode
         >
-          <div className="relative bg-pink-600 border-5 border-pink-300  rounded-sm px-2 text-black font-bold">
+          {/* Input Field Container */}
+          <div className="relative bg-white/5 border border-gray-600 rounded-lg px-4 py-2 text-white shadow-inner backdrop-blur-sm">
             <ComboboxInput
               placeholder={
                 searchByField === "manufacturers"
@@ -95,41 +98,38 @@ export default function SearchBar({ searchByField }: SearchBar) {
                   : "Enter Year"
               }
               onFocus={handleFocus}
-              className="m-auto placeholder:text-white p-2 focus:outline-none focus:ring-0 focus-visible:outline-none"
-              displayValue={(manufacturer: string) => manufacturer}
+              className="w-full bg-transparent placeholder:text-gray-400 text-white text-sm focus:outline-none"
+              displayValue={(val: string) => val}
               onChange={inputHandleChange}
               autoComplete="off"
             />
 
             <ComboboxButton
               onClick={buttonClickHandler}
-              className="group absolute inset-y-0 right-0 px-2.5"
+              className="absolute inset-y-0 right-2 flex items-center justify-center"
             >
-              <FaArrowAltCircleDown
-                color="white"
-                className="text-2xl hover:cursor-pointer"
-              />
+              <FaArrowAltCircleDown className="text-gray-300 text-xl hover:scale-110 transition" />
             </ComboboxButton>
           </div>
+
+          {/* Dropdown Options */}
           {showOptions && (
             <ComboboxOptions
               anchor="bottom"
               transition
               className={clsx(
-                "h-50 overflow-y-auto [w:(--input-width)] min-w-40 rounded-xl border border-white/5 bg-black p-1 [--anchor-gap:--spacing(1)] empty:invisible",
-                "transition duration-100 ease-in data-leave:data-closed:opacity-0"
+                "mt-2 max-h-60 overflow-y-auto rounded-xl border border-gray-700 bg-black/90 p-2 backdrop-blur-md shadow-xl",
+                "transition duration-200 ease-in data-leave:data-closed:opacity-0"
               )}
             >
               {filteredManufacturers?.map((manufacturer) => (
                 <ComboboxOption
                   key={manufacturer.Mfr_ID}
                   value={manufacturer.Mfr_CommonName}
-                  className="group flex cursor-default items-center gap-2 rounded-lg px-3 py-1.5 select-none data-focus:bg-white/10 hover:cursor-pointer"
+                  className="group flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 hover:bg-white/10 transition-all text-sm text-white"
                 >
-                  <FaRegCheckCircle className="invisible size-4 fill-white group-data-selected:visible" />
-                  <div className="text-sm/6 text-white">
-                    {manufacturer.Mfr_CommonName}
-                  </div>
+                  <FaRegCheckCircle className="invisible text-white group-data-selected:visible" />
+                  <span>{manufacturer.Mfr_CommonName}</span>
                 </ComboboxOption>
               ))}
             </ComboboxOptions>
