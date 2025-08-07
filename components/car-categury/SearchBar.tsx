@@ -20,7 +20,7 @@ import {
 } from "@/store/slices/CarFilterReducer";
 
 interface SearchBar {
-  searchByField: string;
+  searchByField: "manufacturers" | "makes" | "year";
 }
 export default function SearchBar({ searchByField }: SearchBar) {
   const [query, setQuery] = useState("");
@@ -90,8 +90,8 @@ export default function SearchBar({ searchByField }: SearchBar) {
               placeholder={
                 searchByField === "manufacturers"
                   ? "Enter Manufacturer"
-                  : searchByField === "carName"
-                  ? "Enter CarName"
+                  : searchByField === "makes"
+                  ? "Enter Make"
                   : "Enter Year"
               }
               onFocus={handleFocus}
