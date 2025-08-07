@@ -8,7 +8,7 @@ export default function CustomButton({
   buttonStyle,
   handleClick,
 }: CustomButtonProps) {
-  const className = `bg-blue-600 cursor-pointer hover:bg-blue-800 rounded-2xl text-white p-2 mt-6 ${buttonStyle}`;
+  const className = `bg-white cursor-pointer hover:bg-gray-300 rounded-sm font-bold text-black p-2 ${buttonStyle}`;
   return (
     <button
       type={type}

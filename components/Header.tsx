@@ -4,23 +4,30 @@ import hero from "@/public/hero.png";
 
 export default function Header() {
   return (
-    <div className="flex flex-col text-justify items-center m-auto mt-35 w-2/3 md:mb-10 sm:mb-10 lg:mb-60 mb-40  ">
-      <div>
-        <h1 className="font-bold text-5xl">
-          FIND, BOOk or RENT a car
+    <section className="flex flex-col-reverse md:flex-row items-center justify-between px-6 py-20 max-w-7xl mx-auto text-white">
+      <div className="flex-1 text-center md:text-left space-y-6">
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg">
+          FIND, BOOK OR RENT CARS
         </h1>
-        <p className="text-gray-700 mt-6">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-          ex alias aliquam porro sit aspernatur maiores, asperiores sed atque
-          sequi.
+        <p className="text-gray-400 text-lg max-w-md mx-auto md:mx-0">
+          This is the best way to rent if you are planning for a trip. Enjoy
+          affordable prices and a wide range of cars!
         </p>
-        <div className="w-full flex justify-start">
+        <div className="flex justify-center md:justify-start">
           <CustomButton type="button" title="Explore Cars" />
         </div>
       </div>
-      <div className="relative w-2/3 h-60 ml-auto">
-        <Image src={hero} alt="hero car"  sizes="" className="" />
+
+      <div className="flex-1 relative w-full max-w-md mb-12 md:mb-0">
+        <Image
+          src={hero}
+          alt="hero car"
+          width={500}
+          height={500}
+          className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+          priority
+        />
       </div>
-    </div>
+    </section>
   );
 }

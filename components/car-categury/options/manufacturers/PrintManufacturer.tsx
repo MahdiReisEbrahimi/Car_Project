@@ -11,7 +11,7 @@ export default function PrintManufacturers({
 }: PrintManufacturersType) {
   return (
     <Link href={`/manufacturers/${manufacturer.Mfr_ID}`}>
-      <div className="rounded-2xl cursor-pointer bg-white shadow-lg border border-gray-200 hover:shadow-xl hover:scale-[1.015] transition-all duration-300 p-5 flex flex-col gap-3">
+      <div className="rounded-2xl cursor-pointer bg-white shadow-lg border h-45 border-gray-200 hover:shadow-xl hover:scale-[1.015] transition-all duration-300 p-5 flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-gray-800">
             <Factory className="w-5 h-5 text-indigo-600" />
