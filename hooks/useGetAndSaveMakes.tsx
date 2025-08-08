@@ -25,7 +25,9 @@ export const useGetAndSaveMakes = (): {
   // if data is fetched from server , save it on redux
   useEffect(() => {
     if (fetchedMakes && makes === null) {
-      dispatch(setMakes(fetchedMakes));
+      // save only first 100 makes to reduce payload size
+      const limitedMakes = fetchedMakes.slice(0, 100);
+      dispatch(setMakes(limitedMakes));
     }
   }, [fetchedMakes, dispatch, makes]);
 
