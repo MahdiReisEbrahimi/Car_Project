@@ -1,12 +1,32 @@
 import { ComboboxInput, ComboboxButton } from "@headlessui/react";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
-export default function SearchInputBox({ placeholder, value, onChange, onFocus, onButtonClick }: any) {
+interface SearchInputProps {
+  searchByField: "manufacturers" | "makes" | "year";
+  onFocus: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onButtonClick: () => void;
+  value: string;
+}
+
+export default function SearchInput({
+  searchByField,
+  onFocus,
+  onChange,
+  onButtonClick,
+  value,
+}: SearchInputProps) {
   return (
     <div className="relative bg-white/5 border border-gray-600 rounded-lg px-4 py-2 text-white shadow-inner backdrop-blur-sm">
       <ComboboxInput
-        placeholder={placeholder}
-        value={value}
+        value={value ? value : ""} // controlled input to prevent losing text
+        placeholder={
+          searchByField === "manufacturers"
+            ? "Enter Manufacturer"
+            : searchByField === "makes"
+            ? "Enter Makes"
+            : "Enter Year"
+        }
         onFocus={onFocus}
         className="w-full bg-transparent placeholder:text-gray-400 text-white text-sm focus:outline-none"
         displayValue={(val: string) => val}

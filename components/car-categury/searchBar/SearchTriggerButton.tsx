@@ -1,6 +1,12 @@
 import { FaSearch } from "react-icons/fa";
 
-export default function SearchTriggerButton({ label, onClick }: { label: string; onClick: () => void }) {
+export default function SearchTriggerButton({
+  label,
+  onClick,
+}: {
+  label: string;
+  onClick: () => void;
+}) {
   return (
     <p
       onClick={onClick}
