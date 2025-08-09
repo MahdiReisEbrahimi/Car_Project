@@ -7,6 +7,7 @@ interface CarManufacturerState {
   wholeManufacturers: Manufacturer[] | null;
   wholeMakes: Make[] | null; // change later
   filteredMakes: Make[] | null; // change later
+  currentMakesPage: number;
 }
 
 const initialState: CarManufacturerState = {
@@ -19,6 +20,7 @@ const initialState: CarManufacturerState = {
   // states for filtering makes
   wholeMakes: null,
   filteredMakes: null,
+  currentMakesPage: 1,
 };
 
 const carFilterSlice = createSlice({
@@ -59,12 +61,16 @@ const carFilterSlice = createSlice({
           )
         ) || null;
     },
+    setCurrentMakesPage(state, actions: PayloadAction<number>) {
+      state.currentMakesPage = actions.payload;
+    },
   },
 });
 
 export const {
   setMakes,
   filterMakes,
+  setCurrentMakesPage,
   setManufacturers,
   filterManufacturers,
   setFilteredBy,
