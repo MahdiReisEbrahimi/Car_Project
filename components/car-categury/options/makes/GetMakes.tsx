@@ -6,9 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrentMakesPage } from "@/store/slices/CarFilterReducer";
 import { Make } from "@/types";
 import LoadingSpinner from "@/components/reusable/LoadingSpinner";
+import Error from "@/components/errorTemplates/Error";
 
 export default function GetMakes() {
-  const { isLoading } = useGetAndSaveMakes();
+  const { isLoading, error } = useGetAndSaveMakes();
   const dispatch = useDispatch();
 
   const makes = useSelector((state: any) => state.carFilter.filteredMakes);
@@ -24,6 +25,8 @@ export default function GetMakes() {
     <div>
       {isLoading ? (
         <LoadingSpinner message="Fetching Makes" />
+      ) : error ? (
+        <Error />
       ) : (
         <>
           <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2 border rounded-2xl p-4">
