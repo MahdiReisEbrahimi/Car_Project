@@ -7,17 +7,17 @@ interface ErrorProps {
 }
 
 export default function Error({
-  title = "Oops! An Error Occurred",
-  message = "Something went wrong. Please try again later.",
+  title = "Oops! Something Went Wrong",
+  message = "Please check your internet connection or try again later.",
   icon,
 }: ErrorProps) {
   return (
-    <div className="w-full max-w-md mx-auto mt-10 px-4 py-6 bg-red-50 border border-red-200 rounded-xl shadow-sm flex flex-col items-center text-center">
-      <div className="text-red-500 mb-3">
-        {icon || <AlertTriangle className="w-10 h-10" color="red" />}
+    <div className="mx-auto max-w-md border-2 mt-12 px-8 py-8 bg-gradient-to-r from-black via-gray-700 to-black rounded-2xl shadow-xl flex flex-col items-center text-center text-white">
+      <div className="mb-4">
+        {icon || <AlertTriangle className="w-14 h-14 text-red-500 animate-pulse" />}
       </div>
-      <h2 className="text-lg font-bold text-red-500 mb-1">{title}</h2>
-      <p className="text-sm text-gray-600">{message}</p>
+      <h2 className="text-2xl font-semibold mb-2">{title}</h2>
+      <p className="text-sm text-gray-300">{message}</p>
     </div>
   );
 }

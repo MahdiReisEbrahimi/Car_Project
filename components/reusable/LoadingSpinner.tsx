@@ -6,13 +6,11 @@ export default function LoadingSpinner({
   message = "Loading...",
 }: LoadingProps) {
   return (
-    <div className="m-auto flex items-center justify-center p-6 bg-gray-400 shadow-lg rounded-lg min-w-[220px] min-h-[80px] space-x-4 mt-2">
-      <span className="text-black font-semibold text-lg select-none">
-        {message}
-      </span>
+    <div className="flex items-center justify-center p-6 bg-black/80 rounded-lg shadow-lg space-x-4 text-white select-none">
+      <span className="font-semibold text-lg">{message}</span>
 
       <svg
-        className="animate-spin h-5 w-5 text-black"
+        className="animate-spin h-6 w-6 text-white"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
