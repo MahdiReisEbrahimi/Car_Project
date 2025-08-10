@@ -1,5 +1,4 @@
 "use client";
-
 import PrintMakes from "./PrintMakes";
 import { useGetAndSaveMakes } from "@/hooks/useGetAndSaveMakes";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,9 +6,10 @@ import { setCurrentMakesPage } from "@/store/slices/CarFilterReducer";
 import { Make } from "@/types";
 import LoadingSpinner from "@/components/reusable/LoadingSpinner";
 import Error from "@/components/errorTemplates/Error";
+import ReloadButton from "@/components/reusable/ReloadButton";
 
 export default function GetMakes() {
-  const { isLoading, error } = useGetAndSaveMakes();
+  const { isFetching, error, refetch } = useGetAndSaveMakes();
   const dispatch = useDispatch();
 
   const makes = useSelector((state: any) => state.carFilter.filteredMakes);
@@ -21,12 +21,19 @@ export default function GetMakes() {
   const endIndex = startIndex + itemsPerPage;
   const currentItems: Make[] = makes?.slice(startIndex, endIndex) || [];
 
+  function reloadButtonHandler() {
+    refetch();
+  }
+
   return (
     <div>
-      {isLoading ? (
+      {isFetching ? (
         <LoadingSpinner message="Fetching Makes" />
       ) : error ? (
-        <Error />
+        <div className="flex flex-col items-center gap-8">
+          <Error />
+          <ReloadButton reloadButtonHandler={reloadButtonHandler} />
+        </div>
       ) : (
         <>
           <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2 border rounded-2xl p-4">
