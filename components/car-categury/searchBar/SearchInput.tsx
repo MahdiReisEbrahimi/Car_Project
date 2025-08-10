@@ -17,7 +17,7 @@ export default function SearchInput({
   value,
 }: SearchInputProps) {
   return (
-    <div className="relative bg-white/5 border border-gray-600 rounded-lg px-4 py-2 text-white shadow-inner backdrop-blur-sm">
+    <div className="relative bg-white rounded-sm px-4 py-[10px] min-w-60 text-white shadow-inner backdrop-blur-sm">
       <ComboboxInput
         value={value ? value : ""} // controlled input to prevent losing text
         placeholder={
@@ -28,7 +28,7 @@ export default function SearchInput({
             : "Enter Year"
         }
         onFocus={onFocus}
-        className="w-full bg-transparent placeholder:text-gray-400 text-white text-sm focus:outline-none"
+        className=" bg-transparent placeholder:text-gray-800 text-black focus:outline-none"
         displayValue={(val: string) => val}
         onChange={onChange}
         autoComplete="off"
@@ -38,7 +38,7 @@ export default function SearchInput({
         onClick={onButtonClick}
         className="absolute inset-y-0 right-2 flex items-center justify-center"
       >
-        <FaArrowAltCircleDown className="text-gray-300 text-xl hover:scale-110 transition" />
+        <FaArrowAltCircleDown className="text-gray-800 text-xl hover:scale-110 transition" />
       </ComboboxButton>
     </div>
   );

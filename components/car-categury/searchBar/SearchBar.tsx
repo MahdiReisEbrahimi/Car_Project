@@ -71,7 +71,7 @@ export default function SearchBar({ searchByField }: SearchBarProps) {
   };
 
   return (
-    <div ref={divRef} className="mx-4 w-60 mb-6">
+    <div ref={divRef} className="min-w-50 mb-6">
       {!isClicked ? (
         <SearchTriggerButton
           onClick={handleSearchByClick}

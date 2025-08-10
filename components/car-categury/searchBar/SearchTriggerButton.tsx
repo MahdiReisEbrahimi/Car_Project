@@ -8,12 +8,13 @@ export default function SearchTriggerButton({
   onClick: () => void;
 }) {
   return (
-    <p
+    <button
       onClick={onClick}
-      className="bg-gradient-to-r flex items-center gap-3 from-gray-500 to-gray-800 text-center text-sm font-semibold text-white py-2 px-4 rounded-lg shadow-md hover:scale-105 transition cursor-pointer"
+      type="button"
+      className="bg-gradient-to-br flex items-center gap-3 from-white to-gray-400 min-w-60 text-center font-semibold text-black py-[10px] px-4 rounded-sm shadow-md hover:scale-99 transition cursor-pointer"
     >
       <FaSearch />
-      Search by {label}
-    </p>
+      Search by {label.charAt(0).toUpperCase() + label.slice(1)}
+    </button>
   );
 }

@@ -10,7 +10,7 @@ export default function Home() {
         <h2 className="font-bold text-2xl">Car Catalogue</h2>
         <p>Explore the cars like</p>
         <div className="flex justify-center">
-          <div className="m-auto flex">
+          <div className="m-auto md:flex md:justify-center md:gap-1.5">
             <SearchBar searchByField="manufacturers" />
             <SearchBar searchByField="makes" />
             <SearchBar searchByField="year" />

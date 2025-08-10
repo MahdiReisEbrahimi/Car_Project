@@ -5,8 +5,8 @@ import { footerLinks } from "@/constants/constants";
 
 export default function Footer() {
   return (
-    <footer className="grid sm:grid-cols-3 xl:grid-cols-4 gap-10 w-full text-gray-700 mx-20 pt-10 mb-10 mt-15 text-black-100 border-t border-gray-300 ">
-      <div className="">
+    <footer className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 text-gray-700 mx-20 pt-10 mb-10 text-black-100 border-t border-gray-300 ">
+      <div>
         <Image
           src={logo}
           alt="logo"
