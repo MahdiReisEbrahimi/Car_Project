@@ -7,12 +7,14 @@ import { setManufacturers } from "@/store/slices/CarFilterReducer";
 import PrintManufacturers from "./PrintManufacturer";
 import LoadingSpinner from "@/components/reusable/LoadingSpinner";
 import Error from "@/components/errorTemplates/Error";
+import ReloadButton from "@/components/reusable/ReloadButton";
 
 export default function GetManufacturers() {
   const {
     data: manufacturers,
-    isLoading: isManufacturersLoading,
+    isFetching,
     error,
+    refetch,
   } = useGetAllManufacturersQuery();
 
   const dispatch = useDispatch();
@@ -31,19 +33,26 @@ export default function GetManufacturers() {
 
     if (
       tempManufac &&
-      !isManufacturersLoading &&
+      !isFetching &&
       (!wholeManufacturers || wholeManufacturers.length === 0)
     ) {
       dispatch(setManufacturers(tempManufac));
     }
-  }, [manufacturers, isManufacturersLoading, storedManufacturers, dispatch]);
+  }, [manufacturers, isFetching, storedManufacturers, dispatch]);
+
+  function reloadButtonHandler() {
+    refetch();
+  }
 
   return (
     <>
-      {isManufacturersLoading ? (
+      {isFetching ? (
         <LoadingSpinner message="Fetching Manufacturers" />
       ) : error ? (
-        <Error />
+        <div className="flex flex-col items-center gap-8">
+          <Error />
+          <ReloadButton reloadButtonHandler={reloadButtonHandler} />
+        </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-2 border rounded-2xl p-4">
           {storedManufacturers?.map(
