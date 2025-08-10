@@ -7,8 +7,9 @@ import { setMakes, filterMakes } from "@/store/slices/CarFilterReducer";
 
 export const useGetAndSaveMakes = (): {
   makes: Make[] | null;
-  isLoading: boolean;
+  isFetching: boolean;
   error: boolean;
+  refetch: () => void;
 } => {
   const dispatch = useDispatch();
 
@@ -16,8 +17,9 @@ export const useGetAndSaveMakes = (): {
 
   const {
     data: fetchedMakes,
-    isLoading,
+    isFetching,
     error,
+    refetch,
   } = useGetAllMakesQuery(undefined, {
     skip: makes !== null, // when we have makes on redux, dont request to server
   });
@@ -40,7 +42,8 @@ export const useGetAndSaveMakes = (): {
 
   return {
     makes,
-    isLoading: makes === null && isLoading,
+    isFetching: makes === null && isFetching,
     error: !!error,
+    refetch,
   };
 };
