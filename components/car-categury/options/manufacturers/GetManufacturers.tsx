@@ -45,7 +45,7 @@ export default function GetManufacturers() {
       ) : error ? (
         <Error />
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2 border rounded-2xl p-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-2 border rounded-2xl p-4">
           {storedManufacturers?.map(
             (manufacturer) =>
               manufacturer.Mfr_CommonName !== null && (

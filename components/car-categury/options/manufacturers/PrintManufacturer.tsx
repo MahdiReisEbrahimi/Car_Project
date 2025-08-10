@@ -36,10 +36,14 @@ export default function PrintManufacturers({
   ];
   const randomIndex = Math.floor(Math.random() * carImages.length);
   const randomCar = carImages[randomIndex];
+  const manufacturerNameSplit: string[] = manufacturer.Mfr_Name.split(" ");
+  const manufacturerName: string =
+    manufacturerNameSplit[0] + " " + manufacturerNameSplit[1];
+
   return (
     <Link href={`/manufacturers/${manufacturer.Mfr_ID}`}>
-      <div className="rounded-2xl cursor-pointer bg-white shadow-lg border h-85 border-gray-200 hover:shadow-xl hover:scale-[1.015] transition-all duration-300 p-5 flex flex-col gap-3">
-        <div className="relative w-full h-40">
+      <div className="rounded-2xl cursor-pointer bg-gradient-to-br via-gray-300 to-gray-600 shadow-lg h-85 hover:shadow-xl hover:scale-[1.015] transition-all duration-300 p-5 flex flex-col gap-3">
+        <div className="relative w-full h-50">
           <Image
             src={randomCar}
             fill
@@ -55,8 +59,8 @@ export default function PrintManufacturers({
               {manufacturer.Mfr_CommonName || "Unknown"}
             </h2>
           </div>
-          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-            {manufacturer.Mfr_Name}
+          <span className="text-xs text-white max-w-50 px-2 py-1 rounded-full">
+            {manufacturerName}
           </span>
         </div>
 

@@ -9,7 +9,7 @@ interface PrintMakesParams {
 export default function PrintMakes({ make }: PrintMakesParams) {
   return (
     <Link href={`/makes/${make.Make_ID}`}>
-      <div className=" rounded-2xl h-35 cursor-pointer bg-white shadow-lg border border-gray-200 hover:shadow-xl hover:scale-[1.015] transition-all duration-300 p-5 flex flex-col justify-between gap-3">
+      <div className=" rounded-2xl h-35 bg-gradient-to-br via-gray-300 to-gray-600 cursor-pointer bg-white shadow-lg border border-gray-200 hover:shadow-xl hover:scale-[1.015] transition-all duration-300 p-5 flex flex-col justify-between gap-3">
         <DommyIcon />
         <div>
           <div className="flex items-center justify-between">
